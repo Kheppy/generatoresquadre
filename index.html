@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genera Squadre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .team {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Seleziona i membri delle squadre</h1>
+<form id="teamForm">
+    <div>
+        <label><input type="checkbox" value="Kheppy"> Kheppy</label><br>
+        <label><input type="checkbox" value="Shiino"> Shiino</label><br>
+        <label><input type="checkbox" value="Ghostmas"> Ghostmas</label><br>
+        <label><input type="checkbox" value="Frazu"> Frazu</label><br>
+        <label><input type="checkbox" value="Peachons"> Peachons</label><br>
+        <label><input type="checkbox" value="Jappa"> Jappa</label><br>
+        <label><input type="checkbox" value="Shiki"> Shiki</label><br>
+        <label><input type="checkbox" value="Transy"> Transy</label><br>
+        <label><input type="checkbox" value="Rizkio"> Rizkio</label><br>
+        <label><input type="checkbox" value="Ciacca"> Ciacca</label><br>
+        <label><input type="checkbox" value="Matty"> Matty</label><br>
+    </div>
+
+    <h3>Inserisci nomi manualmente:</h3>
+    <div>
+        <input type="text" placeholder="Nome 1"><br>
+        <input type="text" placeholder="Nome 2"><br>
+        <input type="text" placeholder="Nome 3"><br>
+        <input type="text" placeholder="Nome 4"><br>
+        <input type="text" placeholder="Nome 5"><br>
+    </div>
+    
+    <button type="button" onclick="generateTeams()">Genera Squadre</button>
+</form>
+
+<h2>Risultato:</h2>
+<div id="team1" class="team"></div>
+<div id="team2" class="team"></div>
+
+<script>
+function generateTeams() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const names = Array.from(checkboxes).map(checkbox => checkbox.value);
+    
+    const manualInputs = document.querySelectorAll('input[type="text"]');
+    manualInputs.forEach(input => {
+        if (input.value.trim() !== "") {
+            names.push(input.value.trim());
+        }
+    });
+
+    // Mescola i nomi
+    const shuffledNames = names.sort(() => Math.random() - 0.5);
+
+    // Dividi i nomi in due squadre
+    const mid = Math.ceil(shuffledNames.length / 2);
+    const team1 = shuffledNames.slice(0, mid);
+    const team2 = shuffledNames.slice(mid);
+
+    // Mostra i risultati
+    document.getElementById('team1').innerHTML = "Squadra 1: " + team1.join(', ');
+    document.getElementById('team2').innerHTML = "Squadra 2: " + team2.join(', ');
+}
+</script>
+
+</body>
+</html>
